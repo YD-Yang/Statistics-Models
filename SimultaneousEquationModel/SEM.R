@@ -80,9 +80,6 @@ for (i in 1:var_N){
 
 
 
-
-
-
 ########################################################
 #original example
 test_data<-data.frame(y1, y2, x1, x2, x3, x4)
