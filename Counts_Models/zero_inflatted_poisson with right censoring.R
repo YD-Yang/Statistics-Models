@@ -2,7 +2,6 @@
 #-------------------------------------------------------
 #Functionality
 #-------------------------------------------------------
-#Code created by Data Science team to predict clusters for VCA data
 
 #-------------------------------------------------------
 #Clean workspace
@@ -110,7 +109,6 @@ dl.ddt<-function(ys = y.vec, ds= ind.cen, betas= beta.vec, deltas = delta.vec, X
   }
   return(dld)
 }
-
 
 
 
