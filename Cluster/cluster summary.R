@@ -28,7 +28,7 @@ data("iris")
 dim(iris)
 
 ggplot(iris, aes(Petal.Length, Petal.Width, color = Species)) + geom_point()
-write.csv(iris, file = "H:/VCA/cluster/iris.csv")
+write.csv(iris, file = "iris.csv")
 #-------------------------------------------------------
 # K-means 
 
@@ -131,8 +131,8 @@ table(iris$Species, Iris_EM)
 
 
 #read in the latent_gold results
-LG_pred<-read.table("H:/VCA/cluster/LG_iris.dat", header = FALSE  , skip = 1)
-LG_head<-read.table("H:/VCA/cluster/LG_iris.dat", nrows = 1)
+LG_pred<-read.table("LG_iris.dat", header = FALSE  , skip = 1)
+LG_head<-read.table("LG_iris.dat", nrows = 1)
 Iris_LG = LG_pred$V8
 table(iris$Species, Iris_LG)
 
