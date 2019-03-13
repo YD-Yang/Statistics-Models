@@ -22,7 +22,7 @@ from hashlib import md5
 ###############################################################################
 ###############################################################################
 #data exploration
-transactions = pd.read_csv("shopko.csv")
+transactions = pd.read_csv("transactions.csv")
 transactions['date'] = pd.to_datetime(transactions['date'])
 transactions.head(20)
 transactions.shape
