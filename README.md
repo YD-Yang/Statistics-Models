@@ -1,1 +1,1 @@
-# Statistical-Models
+# Statistics-Models
