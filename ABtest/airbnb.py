@@ -118,7 +118,6 @@ print("After cleaning, dataset has {} rows, {} columns.".format(*df.shape))
 
 
 #Distribution of price
-%matplotlib inline
 
 fig, axs = plt.subplots(ncols=2, figsize=(16, 4))
 fig.suptitle('Distribution of max guests (before and after removing large listings > 10)', weight='bold', fontsize=12)
