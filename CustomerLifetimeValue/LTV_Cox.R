@@ -302,49 +302,4 @@ heatmap.2(true_pred_table,dendrogram='none', Rowv=FALSE, Colv=FALSE,trace='none'
           col=colorRampPalette(c("white","green","green4","blue"))(100),
           xlab = "true", ylab = "predicted", main = "Ture vs. Prediction on Test Data" )
 
-#----------------------------------------------------------------------------------------------
-#Calibrate LTV estimation 
-quantile (Surv_score$LTV[!is.na(Surv_score$LTV_hat)], seq(.1, .9, by = .1))
-quantile (Surv_score$LTV_hat[!is.na(Surv_score$LTV_hat)], seq(.1, .9, by = .1))
-plot(Surv_score_test_out$LTV, Surv_score_test_out$LTV_hat)
-
-#by using linear regression to search for the calibration parameters 
-x1<- Surv_score$LTV_hat[Surv_score$LTV_hat < 15000 & Surv_score$LTV > -50000  & Surv_score$LTV < 100000   ]
-y1 <- Surv_score$LTV[Surv_score$LTV_hat < 15000 & Surv_score$LTV > -50000 & Surv_score$LTV < 100000]
-plot(x1, y1)
-lm1<- lm(y1~ x1)
-
-x2<- Surv_score$LTV_hat[Surv_score$LTV_hat >= 15000 & Surv_score$LTV_hat <30000& Surv_score$LTV >-200000  ]
-y2 <- Surv_score$LTV[Surv_score$LTV_hat >= 15000 & Surv_score$LTV_hat <30000 & Surv_score$LTV >-200000 ]
-plot(x2, y2)
-lm2<- lm(y2~ x2)
-
-x3<- Surv_score$LTV_hat[Surv_score$LTV_hat >=30000 & Surv_score$LTV >-400000 
-                        & Surv_score$LTV_hat < 150000]
-y3 <- Surv_score$LTV[Surv_score$LTV_hat >= 30000  & Surv_score$LTV >-400000
-                     & Surv_score$LTV_hat < 150000]
-
-Surv_score$LTV_hat2<- ifelse(Surv_score$LTV_hat < 15000, -5000 + Surv_score$LTV_hat * .8, 
-                             ifelse(Surv_score$LTV_hat < 30000, -2000 + Surv_score$LTV_hat * .7, 
-                                    -6000 + Surv_score$LTV_hat * .9))
-
-quantile(Surv_score$LTV_hat[!is.na(Surv_score$LTV_hat)], seq(.1, .9, by = .1))
-quantile(Surv_score$LTV_hat2[!is.na(Surv_score$LTV_hat2)], seq(.1, .9, by = .1))
-mean(Surv_score$LTV_hat2, na.rm =  TRUE)
-quantile(Surv_score$LTV, seq(.1, .9, by = .1))
-
-
-saveRDS(Surv_score,  file = paste0(path_temp, "/Surv_score_eoy.rds"))
-
-
-Score_LTV[is.na(Score_LTV$profit), ]<- "."
-
-Score_LTV <- Surv_score %>%
-  select(one_of("id","profit",  "LTV", "LTV_hat", "LTV_hat2"))
-
-
-write.csv(Score_LTV,  file = paste0(path_temp, "/Score_LTV.csv"))
-
-save(tenure_train, tenure_test, tenure_cox, file = paste0(path_temp, "/model_tenure_surv.RData") )
-
 
